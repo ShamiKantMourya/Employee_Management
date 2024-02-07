@@ -27,6 +27,7 @@ Technology Stack
 Usage
     user Authentication
         Users can authenticate by logging in using their credentials.
+        For admin to login you need special key provided by company(in this case for test purpose the key is "Shamikant").
         JWT authentication tokens are provided upon successful login and are required for accessing protected routes.
 
 Administrator Functions:
