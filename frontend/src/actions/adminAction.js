@@ -46,7 +46,7 @@ export const regsiterAdmin =
 
       const token = await response.json();
       console.log("Success:", token);
-      localStorage.setItem("adminToken", token)
+      // localStorage.setItem("adminToken", token);
     } catch (error) {
       console.error("Error:", error);
     }

@@ -10,7 +10,7 @@ exports.adminLogin = async (req, res) => {
   // console.log(adminname, password, specialKey, "server")
 
   try {
-    const admin = await Admin.findOne({ adminname });
+    const admin = await Admin.findOne({ adminname }).select("+password");
 
     if (!admin || !bcrypt.compareSync(password, admin.password)) {
       return res.status(401).json({ message: "Invalid username or password" });
@@ -21,13 +21,30 @@ exports.adminLogin = async (req, res) => {
       return res.status(401).json({ message: "Invalid special key" });
     }
     // console.log(admin)
+    const isMatch = await admin.matchPassword(password);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: "Incorrect Password",
+      });
+    }
+
+    const option = {
+      expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+      httpOnly: true,
+    };
 
     const token = generateToken({
       id: admin._id,
       username: admin.username,
       role: "admin",
     });
-    res.status(200).json({ token, admin });
+    res.status(200).cookie("token", token, option).json({
+      success: true,
+      admin,
+      token,
+    });
   } catch (error) {
     console.error("Error during admin login:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -141,5 +158,22 @@ exports.getAllUser = async (req, res) => {
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.logoutAdmin = async (req, res) => {
+  try {
+    res
+      .status(200)
+      .cookie("token", null, { expires: new Date(Date.now()), httpOnly: true })
+      .json({
+        success: true,
+        message: "Logout Successfully",
+      });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };

@@ -18,13 +18,11 @@ const Login = () => {
   const changeLoginField = (event) => {
     setPerson(event.target.value);
   };
-  const loginHandler = () => {
+  const loginHandler = async () => {
     if (person === "User") {
-      dispatch(loginUser(userName, userPassword));
-      navigate("/user/dashboard");
+      await dispatch(loginUser(userName, userPassword));
     } else {
-      dispatch(loginAdmin(adminname, password, adminKey));
-      navigate("/admin/employee");
+      await dispatch(loginAdmin(adminname, password, adminKey));
     }
   };
 

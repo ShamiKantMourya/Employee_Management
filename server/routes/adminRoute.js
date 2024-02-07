@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {adminLogin, adminRegister, assignTask, createUser, getAllUser} = require("../controllers/admin");
+const {adminLogin, adminRegister, assignTask, createUser, getAllUser, logoutAdmin} = require("../controllers/admin");
 
 // Admin login route
 router.post('/login', adminLogin);
@@ -11,6 +11,8 @@ router.post('/register', adminRegister);
 // Route to create an employee
 // router.post('/employees', adminController.createEmployee);
 
+//Route to logout
+router.get('/logout', logoutAdmin);
 // Route to assign a task to an employee
 router.post('/tasks', assignTask);
 

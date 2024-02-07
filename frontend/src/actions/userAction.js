@@ -19,9 +19,8 @@ export const loginUser = (username, password) => async (dispatch) => {
       throw new Error("Failed to login");
     }
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     dispatch(setUser(data.user));
-    localStorage.setItem("userToken", data.token);
   } catch (error) {
     dispatch(setError(error.message));
   }

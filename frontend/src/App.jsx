@@ -5,7 +5,8 @@ import Employee from "./components/admin/Employee";
 import Tasks from "./components/admin/Tasks";
 import Manage from "./components/admin/Manage";
 import Dashboard from "./components/user/Dashboard";
-
+import AdminDashboard from "./components/admin/Dashboard";
+ 
 function App() {
   let element = useRoutes([
     { path: "/", element: <Login /> },
@@ -25,6 +26,10 @@ function App() {
     {
       path: "/user/dashboard",
       element: <Dashboard />
+    },
+    {
+      path: "/admin/dashboard",
+      element: <AdminDashboard />
     }
   ]);
   return element;
