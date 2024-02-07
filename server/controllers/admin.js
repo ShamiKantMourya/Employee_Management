@@ -21,14 +21,6 @@ exports.adminLogin = async (req, res) => {
       return res.status(401).json({ message: "Invalid special key" });
     }
     // console.log(admin)
-    const isMatch = await admin.matchPassword(password);
-
-    if (!isMatch) {
-      return res.status(400).json({
-        success: false,
-        message: "Incorrect Password",
-      });
-    }
 
     const option = {
       expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),

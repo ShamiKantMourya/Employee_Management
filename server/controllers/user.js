@@ -13,14 +13,7 @@ exports.loginUser = async (req, res) => {
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return res.status(401).json({ message: "Invalid username or password" });
     }
-    const isMatch = await user.matchPassword(password);
 
-    if (!isMatch) {
-      return res.status(400).json({
-        success: false,
-        message: "Incorrect Password",
-      });
-    }
 
     const option = {
       expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
