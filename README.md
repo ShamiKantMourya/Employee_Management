@@ -57,3 +57,6 @@ Employee Functions:
         Log in to the system using valid credentials.
         Click on the task to view details.
         Update the task status as needed.
+
+To run server node index.js
+to run client side npm run dev
